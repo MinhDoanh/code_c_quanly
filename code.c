@@ -3,8 +3,7 @@
 #include <conio.h>
 #include <string.h>
 #include <stdbool.h>
-#include <ctype.h>
-#include <windows.h>
+
 
 
 // thong tin cua 1 Nhan Vien
@@ -23,7 +22,6 @@ typedef struct {
 	int tuoi;
 	char gt[4];
 	char sdt[11];
-	char ngaydat[20];
 	char diachi[100];
 } KhachHang;
 // thong tin cua 1 hoa don dat
@@ -33,6 +31,8 @@ typedef struct {
 	char tennv[30];
 	char makh[10];
 	char tenkh[30];
+	char sdt[11];
+	char diachi[100];
 	char ngaydat[20];
 	char ngaygiao[20];
 } HoaDonDat;
@@ -74,7 +74,7 @@ void DocFile_NhanVien(NhanVien dsnv[], int* slnv) {
 	fclose(f);
 	*slnv = i;
 }
-//=========== Ghi, Doc File Khach Hï¿½ng ======================
+//=========== Ghi, Doc File Khach Hàng ======================
 void GhiFile_KhachHang(KhachHang dskh[], int slkh) {
 	FILE* f;
 	f = fopen("DSKH.dat", "wb");
@@ -323,40 +323,41 @@ void HienThiTT_NhanVien(NhanVien dsnv[], int slnv) {
 
 // ================================= HIEN THI THONG TIN KHACH HANG ====================
 void HienThiCot_KhachHang() { 
-	printf("==============================================================================================================================================================\n");
-	printf("\n| %-10s | %-30s | %-10s | %-10s | %-12s | %-50s | %-50s|\n", "MaKH", "Ten KH", "Tuoi", "Gioi Tinh", "SDT", "Ngay Dat", "Dia Chi");
-	printf("==============================================================================================================================================================\n");
+	printf("===========================================================================================================================================\n");
+	printf("| %-10s | %-30s | %-10s | %-10s | %-12s| %-50s|\n", "MaKH", "Ten KH", "Tuoi", "Gioi Tinh", "SDT", "Dia Chi");
+	printf("===========================================================================================================================================\n");
 }
 void HienThiTT_KhachHang(KhachHang dskh[], int slkh) {
 	HienThiCot_KhachHang();
 	for (int i = 0; i < slkh; i++) {
-		printf("\n| %-10s | %-30s | %-10d | %-10s | %-12s | %-50s | %-50s|\n", dskh[i].makh, dskh[i].tenkh, dskh[i].tuoi, dskh[i].gt, dskh[i].sdt, dskh[i].ngaydat, dskh[i].diachi);
-		printf("______________________________________________________________________________________________________________________________________________________________\n");
+		printf("| %-10s | %-30s | %-10d | %-10s | %-12s| %-50s|\n", dskh[i].makh, dskh[i].tenkh, dskh[i].tuoi, dskh[i].gt, dskh[i].sdt, dskh[i].diachi);
+		printf("___________________________________________________________________________________________________________________________________________\n");
 	}
 	printf("\n");
 }
 void HienThiCot_HoaDon(){
-	printf("==========================================================================================================================================\n");
-	printf("| %-10s | %-10s | %-30s | %-10s | %-30s | %-50s | %-50s |\n","MaHD", "MaNV","TenNV", "  MAKH", "TenKH", "Ngay Dat","Ngay Giao");
-	printf("==========================================================================================================================================\n");
+	printf("===================================================================================================================================================================================\n");
+	printf("| %-10s | %-10s | %-30s | %-10s | %-30s | %-12s | %-20s |%-15s | %-15s |\n","MaHD", "MaNV","TenNV", "  MAKH", "TenKH", "SDT KHang", "Dia Chi", "Ngay Dat", "Ngay Giao");
+	printf("===================================================================================================================================================================================\n");
 }
 void HienThiTT_HoaDon(HoaDonDat dshd[],int slhd){
 	HienThiCot_HoaDon();
 	for(int i = 0; i<slhd; i++){    
-		printf("| %-10s | %-10s | %-30s | %-10s | %-30s | %-50s | %-50s |\n",dshd[i].mahd, dshd[i].manv, dshd[i].tennv, dshd[i].makh, dshd[i].tenkh, dshd[i].ngaydat, dshd[i].ngaygiao);
-		printf("__________________________________________________________________________________________________________________________________________\n");				
+		printf("| %-10s | %-10s | %-30s | %-10s | %-30s |%-12s  |%-20s  |%-15s | %-15s |\n",dshd[i].mahd, dshd[i].manv, dshd[i].tennv, dshd[i].makh, dshd[i].tenkh, dshd[i].sdt, dshd[i].diachi, dshd[i].ngaydat, dshd[i].ngaygiao);
+		printf("___________________________________________________________________________________________________________________________________________________________________________________\n");				
 	}
 }
 void HienThiCot_BangLuong() {
-	printf("==================================================================================================================================================================================================================\n");
-	printf("| %-10s | %-30s | %-15s | %-27s | %-10s | %-25s | %-25s | %-25s \n", "MaNV", "   Ten NV", "Thoi gian lam", " So luong don da giao", "Thoi gian lam them", "Luong co ban","Luong lam them", "Tong tien luong");
-	printf("==================================================================================================================================================================================================================\n");
+	printf("====================================================================================================================================================================\n");
+	printf("| %-10s | %-30s | %-10s | %-14s | %-15s | %-20s | %-20s | %-20s |\n", "MaNV", "   Ten NV", "TG Lam", "don da giao", "TG lam them", "Luong co ban","Luong lam them", "Tong tien luong");
+	printf("====================================================================================================================================================================\n");
 }
+
 void HienThiTT_BangLuong(BangLuong dsbl[], int slbl) {
 	HienThiCot_BangLuong();
 	for (int i = 0; i < slbl; i++) {  
-			printf("| %-10s | %-30s | %-15s | %-27s | %-10s | %-25s | %-25s | %-25s \n", dsbl[i].manv, dsbl[i].tennv, dsbl[i].tglv, dsbl[i].sddg, dsbl[i].tglt, dsbl[i].lcb, dsbl[i].llt, dsbl[i].ttl);
-			printf("_______________________________________________________________________________________________________________________________________________________________________________\n");
+			printf("| %-10s | %-30s | %-10.2f | %-14.2f | %-15.2f | %-20.2f | %-20.2f | %-20.2f |\n", dsbl[i].manv, dsbl[i].tennv, dsbl[i].tglv, dsbl[i].sddg, dsbl[i].tglt, dsbl[i].lcb, dsbl[i].llt, dsbl[i].ttl);
+			printf("____________________________________________________________________________________________________________________________________________________________________\n");
 		}
 }
 
@@ -365,17 +366,36 @@ void HienThiTT_BangLuong(BangLuong dsbl[], int slbl) {
 void HienThi(NhanVien dsnv[], int slnv, KhachHang dskh[], int slkh, HoaDonDat dshd[], int slhd, BangLuong dsbl[], int slbl ){
 	int chon;
 	do{
-		system("cls");
-		printf("\n______________________ Hien Thi __________________________\n");
-		printf("|                                                         |\n");
-		printf("|      1.  Hien Thi Thong Tin Cua Cac Nhan Vien           |\n");
-		printf("|      2.  Hien Thi Thong Tin Cua Cac Khach Hang          |\n");
-		printf("|      3.  Hien Thi Thong Tin Cua Cac Hoa Don Dat         |\n");
-		printf("|      4.  Hien Thi Thong Tin Bang Luong                  |\n");
- 		printf("|      0.  Thoat Hien Thi                                 |\n");
-		printf("|_________________________________________________________|\n");
-		printf("                    Lua Chon cua Ban: ");
-		scanf("%d",&chon);
+		do{
+			
+			system("cls");
+			printf("\n______________________ Hien Thi __________________________\n");
+			printf("|                                                         |\n");
+			printf("|      1.  Hien Thi Thong Tin Cua Cac Nhan Vien           |\n");
+			printf("|      2.  Hien Thi Thong Tin Cua Cac Khach Hang          |\n");
+			printf("|      3.  Hien Thi Thong Tin Cua Cac Hoa Don Dat         |\n");
+			printf("|      4.  Hien Thi Thong Tin Bang Luong                  |\n");
+	 		printf("|      0.  Thoat Hien Thi                                 |\n");
+			printf("|_________________________________________________________|\n");
+			bool check = true;
+			char Chon[5];
+			printf("\n               	Ban lua chon: ");
+			scanf("%s", &Chon); 
+			for(int i = 0; i<strlen(Chon);i++){
+				if(Chon[i] < 48 || Chon[i] > 57){
+					check = false;
+				}
+			}
+			if(check == true){
+				chon = atoi(Chon);
+				break;
+			} 
+			else{
+				printf("Lua Chon Khong Phu Hop. Moi Ban Nhap Lai!\n");
+				system("pause");
+			}  
+			
+		}while(true);
 		switch(chon){
 			case 0:
 				break;
@@ -443,7 +463,7 @@ NhanVien Nhap1TT_NhanVien(NhanVien dsnv[], int slnv) {
 		if(nv.tuoi > 17){
 			break;
 		}
-		printf("\n=> Ngay Sinh Khong Hop Le. Vui Long Nhap Dung Tuoi Duoc La Dong !\n"); 
+		printf("\n=> Tuoi Khong Hop Le. Vui Long Nhap Dung Tuoi > = 18 !\n"); 
 	}while(true);
 
  	do{
@@ -483,7 +503,7 @@ int timkiem_nhanvien(NhanVien dsnv[], int slnv, char str[10]){
 			check = i;
 			printf("\n\t\t\t\t\t\tTHONG TIN NHAN VIEN CAN TIM\n");
 			HienThiCot_NhanVien();
-			printf("| %-10s | %-30s | %-12s | %-10s | %-10s | %-50s|\n", dsnv[i].manv, dsnv[i].tennv, dsnv[i].tuoi, dsnv[i].gt, dsnv[i].sdt, dsnv[i].diachi);
+			printf("| %-10s | %-30s | %-12d | %-10s | %-10s | %-50s|\n", dsnv[i].manv, dsnv[i].tennv, dsnv[i].tuoi, dsnv[i].gt, dsnv[i].sdt, dsnv[i].diachi);
 			printf("____________________________________________________________________________________________________________________________________________\n");
 			break;
 		}
@@ -491,13 +511,13 @@ int timkiem_nhanvien(NhanVien dsnv[], int slnv, char str[10]){
 	return check;
 }
 void TimKiem_NhanVien(NhanVien dsnv[], int slnv) {
-	printf("\n\t\t\t\t\t\tTHONG TIN HOC VIEN\n");
+	printf("\n\t\t\t\t\t\tTHONG TIN NHAN VIEN\n");
 	HienThiTT_NhanVien(dsnv, slnv);
 	char manvCanTim[10]; 
 	printf("Nhap Ma Nhan Vien Can Tim: "); scanf("%s", &manvCanTim);
 	int check = timkiem_nhanvien(dsnv,slnv, manvCanTim);
 	if (check == -1) {
-		printf("\nKhong Tim Thay Hoc Vien\n");
+		printf("\nKhong Tim Thay Nhân Vien\n");
 		return;
 	}	
 }
@@ -514,7 +534,7 @@ void CapNhapTT_NhanVien(NhanVien dsnv[], int slnv, BangLuong dsbl[], int slbl, H
 		printf("\n\t\t\t\t\t\tDanh Sach Nhan Vien\n");
 		HienThiTT_NhanVien(dsnv, slnv);
 		char manvCanCapNhap[10]; 
-		printf("Nhap Ma Giao Vien Can Cap Nhap: "); scanf("%s", &manvCanCapNhap);
+		printf("Nhap Ma NHAN Vien Can Cap Nhap: "); scanf("%s", &manvCanCapNhap);
 	  	int check = timkiem_nhanvien(dsnv, slnv, manvCanCapNhap);
 	  	if(check == -1){
 	  		printf("\nKhong Tim Thay Nhan Vien Can Sua\n"); 
@@ -588,8 +608,10 @@ void CapNhapTT_NhanVien(NhanVien dsnv[], int slnv, BangLuong dsbl[], int slbl, H
 				GhiFile_HoaDon(dshd,slhd);
 				GhiFile_BangLuong(dsbl,slbl);
 				printf("\nCap Nhap Thanh Cong\n");
-				printf("\t\t\t\t\t\tDanh Sach Giao Vien Sau Khi Sua\n");
-				HienThiTT_NhanVien(dsnv, slnv); 
+				printf("\t\t\t\t\t\tDanh Sach Nhan Vien Sau Khi Sua\n");
+				HienThiCot_NhanVien();
+				printf("| %-10s | %-30s | %-12d | %-10s | %-10s | %-50s|\n", dsnv[check].manv, dsnv[check].tennv, dsnv[check].tuoi, dsnv[check].gt, dsnv[check].sdt, dsnv[check].diachi);
+				printf("____________________________________________________________________________________________________________________________________________\n");
 			}
 		}
 	}while(true); 
@@ -611,7 +633,7 @@ void XoaTT_NhanVien(NhanVien dsnv[], int* slnv, BangLuong dsbl[], int* slbl, Hoa
 		printf("Nhap MaNV Can Xoa: "); scanf("%s", &manvCanXoa);
 		int check = timkiem_nhanvien(dsnv, *slnv, manvCanXoa);
 		if(check == -1){
-			printf("\nKhong Tim Thay Giao Vien Can Xoa\n"); 
+			printf("\nKhong Tim Thay Nhan Vien Can Xoa\n"); 
 		}
 		else{  
 			printf("Ban Co Chac Chan Muon Xoa Khong ? (y): ");
@@ -620,28 +642,29 @@ void XoaTT_NhanVien(NhanVien dsnv[], int* slnv, BangLuong dsbl[], int* slbl, Hoa
 				printf("\nThong Tin Nhan Vien Chua Duoc Xoa\n");
 			}
 			else{
+				
 				for (int j = check; j < *slnv - 1; j++) {
 					dsnv[j] = dsnv[j + 1];
 				}
-				*slnv = *slnv - 1;  
+				*slnv = *slnv - 1; 
 				for (int i = 0; i < *slhd; i++) {
 					if (strcmp(dshd[i].manv, manvCanXoa) == 0) {
 						for(int j= i; j<*slhd; j++)
  							dshd[j] = dshd[j + 1];
+ 						i--;
  					}
- 					i--;
 				}
-				*slhd--;
+				--*slhd;   
 				for (int i = 0; i < *slbl; i++) {
 					if (strcmp(dsbl[i].manv, manvCanXoa) == 0) {
 						for(int j= i; j<*slbl; j++)
  							dsbl[j] = dsbl[j + 1];
- 					}
- 					i--;
+ 						i--;
+ 					} 
 				}
-				*slbl--;
-				printf("\nDa Xoa Thong Tin Giao Vien\n");
-				printf("\n\t\t\t\t\t\tDanh Sach Giao Vien Sau Khi Xoa\n");
+				--*slbl;
+				printf("\nDa Xoa Thong Tin Nhan Vien\n");
+				printf("\n\t\t\t\t\t\tDanh Sach Nhan Vien Sau Khi Xoa\n");
 				HienThiTT_NhanVien(dsnv, *slnv);
 				GhiFile_NhanVien(dsnv, *slnv);
 				GhiFile_HoaDon(dshd, *slhd);
@@ -655,16 +678,35 @@ void XoaTT_NhanVien(NhanVien dsnv[], int* slnv, BangLuong dsbl[], int* slbl, Hoa
 void QuanLyTT_NhanVien(NhanVien dsnv[], int* slnv, KhachHang dskh[], int* slkh, HoaDonDat dshd[], int* slhd, BangLuong dsbl[], int* slbl) {
 	int chon;
 	do {
-		system("cls");
-		printf("\n_____________ Quan Ly Nhan Vien ___________");
-		printf("\n|                                         |");
-		printf("\n|    1. Them Nhan Vien Moi                |");
-		printf("\n|    2. Cap Nhap Lai Thong Tin Nhan Vien  |");
-		printf("\n|    3. Xoa Thong Tin Nhan Vien           |");
-		printf("\n|    0. Thoat Quan Ly Nhan Vien           |");
-		printf("\n|_________________________________________|");
-		printf("\n           Lua chon cua ban ");
-		scanf("%d", &chon);
+		do
+		{ 
+			system("cls");
+			printf("\n_____________ Quan Ly Nhan Vien ___________");
+			printf("\n|                                         |");
+			printf("\n|    1. Them Nhan Vien Moi                |");
+			printf("\n|    2. Cap Nhap Lai Thong Tin Nhan Vien  |");
+			printf("\n|    3. Xoa Thong Tin Nhan Vien           |");
+			printf("\n|    0. Thoat Quan Ly Nhan Vien           |");
+			printf("\n|_________________________________________|");
+			bool check = true;
+			char Chon[5];
+			printf("\n               	Ban lua chon: ");
+			scanf("%s", &Chon); 
+			for(int i = 0; i<strlen(Chon);i++){
+				if(Chon[i] < 48 || Chon[i] > 57){
+					check = false;
+				}
+			}
+			if(check == true){
+				chon = atoi(Chon);
+				break;
+			} 
+			else{
+				printf("Lua Chon Khong Phu Hop. Moi Ban Nhap Lai!\n");
+				system("pause");
+			}  
+			
+		}while(true);
 		switch (chon) {
 		case 0:
 			break;
@@ -693,6 +735,7 @@ void QuanLyTT_NhanVien(NhanVien dsnv[], int* slnv, KhachHang dskh[], int* slkh, 
 			break;  
 		default:
 			printf("\nNhap Sai Moi Ban Nhap Lai\n");
+			system("pause");
 			break;
 		}
 	} while (chon);
@@ -708,7 +751,7 @@ KhachHang Nhap1TT_KhachHang(KhachHang dskh[], int slkh) {
 		printf("\nMa Khach Hang: "); fflush(stdin); gets(kh.makh);
 		XoaDauCach(kh.makh);
 		if(strlen(kh.makh)==0){
-			printf("\n=> Ma Nhan Vien Khong Hop Le. Moi Nhap Lai !");
+			printf("\n=> Ma Khach Hang Khong Hop Le. Moi Nhap Lai !");
 			check = false;
 		}
 		for (int i = 0; i < slkh; i++) {
@@ -732,7 +775,7 @@ KhachHang Nhap1TT_KhachHang(KhachHang dskh[], int slkh) {
 		if(kh.tuoi > 14){
 			break;
 		}
-		printf("\n=> Tuoi Khong Hop Le. Vui Long Nhap Dung Tuoi  !\n"); 
+		printf("\n=> Tuoi Khong Hop Le. Vui Long Nhap Dung Tuoi >= 15  !\n"); 
 	}while(true);
 
  	do{
@@ -752,14 +795,14 @@ KhachHang Nhap1TT_KhachHang(KhachHang dskh[], int slkh) {
 		} 
 		printf("\n=> So Dien Thoai Khong Hop Le. Moi Ban Nhap Lai!\n"); 
 	}while(true); 
-	do{ 
-		printf("Ngay Dat Hang(DD/MM/YYYY): "); fflush(stdin); gets(kh.ngaydat); 
-		XoaDauCach(kh.ngaydat);
-		if(KTNgayChuan(kh.ngaydat) == true){
-				break;
-		}
-	printf("\n=> Ngay Dat Hang Khong Hop Le. Vui Long Nhap Dung Dinh Dang Ngay !\n"); 
-	}while(true);
+//	do{ 
+//		printf("Ngay Dat Hang(DD/MM/YYYY): "); fflush(stdin); gets(kh.ngaydat); 
+//		XoaDauCach(kh.ngaydat);
+//		if(KTNgayChuan(kh.ngaydat) == true){
+//				break;
+//		}
+//	printf("\n=> Ngay Dat Hang Khong Hop Le. Vui Long Nhap Dung Dinh Dang Ngay !\n"); 
+//	}while(true);
  	do{
  		fflush(stdin);printf("Dia Chi: "), gets(kh.diachi);
  		ChuanHoaChuoi(kh.diachi);
@@ -777,10 +820,10 @@ int timkiem_KhachHang(KhachHang dskh[], int slkh, char str[10]){
 	for (int i = 0; i < slkh; i++) {
 		if (strcmp(dskh[i].makh, str) == 0) {
 			check = i;
-			printf("\n\t\t\t\t\t\tTHONG TIN NHAN VIEN CAN TIM\n");
+			printf("\n\t\t\t\t\t\tTHONG TIN KHACH HANG CAN TIM\n");
 			HienThiCot_KhachHang();
-			printf("| %-10s | %-30s | %-12s | %-10s | %-10s | %-50s| %-50s|\n", dskh[i].makh, dskh[i].tenkh, dskh[i].tuoi, dskh[i].gt, dskh[i].sdt,dskh[i].ngaydat, dskh[i].diachi);
-			printf("_______________________________________________________________________________________________________________________________________________________________\n");
+			printf("| %-10s | %-30s | %-10d | %-10s | %-12s| %-50s|\n", dskh[i].makh, dskh[i].tenkh, dskh[i].tuoi, dskh[i].gt, dskh[i].sdt, dskh[i].diachi);
+			printf("___________________________________________________________________________________________________________________________________________\n");
 			break;
 		}
 	}
@@ -810,14 +853,14 @@ void CapNhapTT_KhachHang(KhachHang dskh[], int slkh, HoaDonDat dshd[], int slhd)
 		printf("\n\t\t\t\t\t\tDanh Sach Khach Hang\n");
 		HienThiTT_KhachHang(dskh, slkh);
 		char makhCanCapNhap[10]; 
-		printf("Nhap Ma Giao Vien Can Cap Nhap: "); scanf("%s", &makhCanCapNhap);
+		printf("Nhap Ma Khach Hang Can Cap Nhap: "); scanf("%s", &makhCanCapNhap);
 	  	int check = timkiem_KhachHang(dskh, slkh, makhCanCapNhap);
 	  	if(check == -1){
 	  		printf("\nKhong Tim Thay Khach Hang Can Sua\n"); 
 		}
 		else{ 
 			char key[5];
-			printf("Ban Co Chac Chan Muon Sua Khong? (y): ");
+			printf("Ban Co Chac Chan Muon Sua Khong ? (y): ");
 			fflush(stdin); gets(key);
 			if(strcmp(strlwr(key),"y")!=0){
 				printf("\nThong Tin Chua Duoc Sua\n"); 
@@ -835,7 +878,7 @@ void CapNhapTT_KhachHang(KhachHang dskh[], int slkh, HoaDonDat dshd[], int slhd)
 				}while(true);
 				
 				do{ 
-			 		printf("Tuoi: "); fflush(stdin); scanf("%d",kh.tuoi); 
+			 		printf("Tuoi: "); fflush(stdin); scanf("%d",&kh.tuoi); 
 					if(kh.tuoi >= 15){
 						break;
 					}
@@ -850,16 +893,7 @@ void CapNhapTT_KhachHang(KhachHang dskh[], int slkh, HoaDonDat dshd[], int slhd)
 					} 
 					printf("\n=> Gioi Tinh (Nam/Nu). Moi Nhap Lai\n");
 				}while(true);
-			 	
-			 	do{ 
-			 		printf("Ngay Dat Hang (DD/MM/YYYY): "); fflush(stdin); gets(kh.ngaydat); 
-					XoaDauCach(kh.ngaydat);
-					if(KTNgayChuan(kh.ngaydat) == true){
-						break;
-					}
-					printf("\n=> Ngay Dat Hang Khong Hop Le. Vui Long Nhap Dung Dinh Dang Ngay !\n"); 
-				}while(true);
-				
+
 				do{
 					fflush(stdin);printf("So Dien Thoai: "); gets(kh.sdt);
 					XoaDauCach(kh.sdt);
@@ -885,14 +919,21 @@ void CapNhapTT_KhachHang(KhachHang dskh[], int slkh, HoaDonDat dshd[], int slhd)
 				}
 				for (int j = 0; j < slhd; j++) {
 					if (strcmp(dshd[j].makh, dshd[check].makh) == 0) {
-						strcpy(dshd[j].ngaydat, dskh[check].ngaydat); 
+						strcpy(dshd[j].sdt, dskh[check].sdt); 
+					}
+				}
+				for (int j = 0; j < slhd; j++) {
+					if (strcmp(dshd[j].makh, dshd[check].makh) == 0) {
+						strcpy(dshd[j].diachi, dskh[check].diachi); 
 					}
 				}
 				GhiFile_KhachHang(dskh,slkh);
 				GhiFile_HoaDon(dshd,slhd);
 				printf("\nCap Nhap Thanh Cong\n");
 				printf("\t\t\t\t\t\tDanh Sach Khach Hang Sau Khi Sua\n");
-				HienThiTT_KhachHang(dskh, slkh); 
+				HienThiCot_KhachHang();
+				printf("| %-10s | %-30s | %-10d | %-10s | %-12s| %-50s|\n", dskh[check].makh, dskh[check].tenkh, dskh[check].tuoi, dskh[check].gt, dskh[check].sdt, dskh[check].diachi);
+				printf("___________________________________________________________________________________________________________________________________________\n");
 			}
 		}
 	}while(true); 
@@ -914,7 +955,7 @@ void XoaTT_KhachHang(KhachHang dskh[], int* slkh, HoaDonDat dshd[], int* slhd){
 		printf("Nhap makh Can Xoa: "); scanf("%s", &makhCanXoa);
 		int check = timkiem_KhachHang(dskh, *slkh, makhCanXoa);
 		if(check == -1){
-			printf("\nKhong Tim Thay Giao Vien Can Xoa\n"); 
+			printf("\nKhong Tim Thay Khach Hang Can Xoa\n"); 
 		}
 		else{  
 			printf("Ban Co Chac Chan Muon Xoa Khong ? (y): ");
@@ -931,10 +972,10 @@ void XoaTT_KhachHang(KhachHang dskh[], int* slkh, HoaDonDat dshd[], int* slhd){
 					if (strcmp(dshd[i].makh, makhCanXoa) == 0) {
 						for(int j= i; j<*slhd; j++)
  							dshd[j] = dshd[j + 1];
- 					}
- 					i--;
+ 							i--;
+					 }
 				}
-				*slhd--;
+				
 				printf("\nDa Xoa Thong Tin Khach Hang\n");
 				printf("\n\t\t\t\t\t\tDanh Sach Khach Hang Sau Khi Xoa\n");
 				HienThiTT_KhachHang(dskh, *slkh);
@@ -949,16 +990,35 @@ void XoaTT_KhachHang(KhachHang dskh[], int* slkh, HoaDonDat dshd[], int* slhd){
 void QuanLyTT_KhachHang(KhachHang dskh[], int* slkh, HoaDonDat dshd[], int* slhd) {
 	int chon;
 	do {
-		system("cls");
-		printf("\n _____________ Quan Ly Khach Hang ___________");
-		printf("\n|                                            |");
-		printf("\n|    1. Them Khach Hang Moi                  |");
-		printf("\n|    2. Cap Nhap Lai Thong Tin Khach Hang    |");
-		printf("\n|    3. Xoa Thong Tin Khach Hang             |");
-		printf("\n|    0. Thoat Quan Ly Khach Hang             |");
-		printf("\n|____________________________________________|");
-		printf("\n           Lua chon cua ban: ");
-		scanf("%d", &chon);
+		do{
+		
+			system("cls");
+			printf("\n _____________ Quan Ly Khach Hang ___________");
+			printf("\n|                                            |");
+			printf("\n|    1. Them Khach Hang Moi                  |");
+			printf("\n|    2. Cap Nhap Lai Thong Tin Khach Hang    |");
+			printf("\n|    3. Xoa Thong Tin Khach Hang             |");
+			printf("\n|    0. Thoat Quan Ly Khach Hang             |");
+			printf("\n|____________________________________________|");
+			bool check = true;
+			char Chon[5];
+			printf("\n               	Ban lua chon: ");
+			scanf("%s", &Chon); 
+			for(int i = 0; i<strlen(Chon);i++){
+				if(Chon[i] < 48 || Chon[i] > 57){
+					check = false;
+				}
+			}
+			if(check == true){
+				chon = atoi(Chon);
+				break;
+			} 
+			else{
+				printf("Lua Chon Khong Phu Hop. Moi Ban Nhap Lai!\n");
+				system("pause");
+			}  
+			
+		}while(true);
 		switch (chon) {
 		case 0:
 			break;
@@ -987,6 +1047,7 @@ void QuanLyTT_KhachHang(KhachHang dskh[], int* slkh, HoaDonDat dshd[], int* slhd
 			break;  
 		default:
 			printf("\nNhap Sai Moi Ban Nhap Lai\n");
+			system("pause");
 			break;
 		}
 	} while (chon);
@@ -1002,7 +1063,7 @@ HoaDonDat Nhap1TT_HoaDon(HoaDonDat dshd[], int slhd, NhanVien dsnv[], int slnv, 
 		printf("\nMa Hoa Don: "); fflush(stdin); gets(hd.mahd);
 		XoaDauCach(hd.mahd);
  		if(strlen(hd.mahd)==0){ 
-			printf("\n=> Ma Khoa Hoc Khong Hop Le. Moi Nhap Lai !");
+			printf("\n=> Ma Hoa Don Khong Hop Le. Moi Nhap Lai !");
 			check = true;
 		} 
 		for (int i = 0; i < slkh; i++) {
@@ -1035,13 +1096,25 @@ HoaDonDat Nhap1TT_HoaDon(HoaDonDat dshd[], int slhd, NhanVien dsnv[], int slnv, 
 			if (strcmp(dskh[i].makh, hd.makh) == 0) {
 				strcpy(hd.tenkh, dskh[i].tenkh);
 				printf("Ten Khach Hang: %s\n", hd.tenkh); 
-				strcpy(hd.ngaydat, dskh[i].ngaydat);
-				printf("Ngay Dat Hang: %s\n", hd.ngaydat);
+				strcpy(hd.sdt, dskh[i].sdt);
+				printf("Sdt kh: %s\n", hd.sdt);
+				strcpy(hd.diachi, dskh[i].diachi);
+				printf("Dia Chi: %s\n", hd.diachi);
 				check = true;
+				break;
 			}
 		}
 		if(check == false) printf("\n=> Ma Khach Hang Khong Ton Tai. Moi Nhap Lai !\n");
 	} while (check == false);
+	
+	do{ 
+		printf("Ngay Dat Hang(DD/MM/YYYY): "); fflush(stdin); gets(hd.ngaydat); 
+		XoaDauCach(hd.ngaydat);
+		if(KTNgayChuan(hd.ngaydat) == true){
+				break;
+		}
+	printf("\n=> Ngay Dat Hang Khong Hop Le. Vui Long Nhap Dung Dinh Dang Ngay !\n"); 
+	}while(true);
 	
 	do{ 
 		printf("Ngay Giao Hang (DD/MM/YY): ");fflush(stdin); gets(hd.ngaygiao); 
@@ -1065,8 +1138,8 @@ int timkiem_hoadon(HoaDonDat dshd[], int slhd, char str[10]){
 			check = i;
 			printf("\n\t\t\t\t\t\tTHONG TIN HOA DON CAN TIM\n");
 			HienThiCot_HoaDon(); 
-			printf("| %-10s | %-10s | %-30s | %-10s | %-30s | %-50s | %-50s |\n",dshd[i].mahd, dshd[i].manv,dshd[i].tennv, dshd[i].makh, dshd[i].tenkh, dshd[i].ngaydat, dshd[i].ngaygiao);
-			printf("________________________________________________________________________________________________________________________________________\n");
+			printf("| %-10s | %-10s | %-30s | %-10s | %-30s |%-12s  |%-20s  |%-15s | %-15s |\n",dshd[i].mahd, dshd[i].manv, dshd[i].tennv, dshd[i].makh, dshd[i].tenkh, dshd[i].sdt, dshd[i].diachi, dshd[i].ngaydat, dshd[i].ngaygiao);
+			printf("___________________________________________________________________________________________________________________________________________________________________________________\n");
 			break;
 		}
 	} 
@@ -1085,7 +1158,7 @@ void TimKiem_HoaDon(HoaDonDat dshd[], int slhd) {
 	}	
 }
  
-//================== CAP NHAP THONG TIN KHOA HOC =====================
+//================== CAP NHAP THONG TIN HOA DON =====================
 void CapNhapTT_HoaDon(HoaDonDat dshd[], int slhd, NhanVien dsnv[], int slnv, KhachHang dskh[], int slkh) {
 	char key[5];
 	do{
@@ -1113,21 +1186,21 @@ void CapNhapTT_HoaDon(HoaDonDat dshd[], int slhd, NhanVien dsnv[], int slnv, Kha
 			 	HoaDonDat hd;
 				strcpy(hd.mahd, dshd[check].mahd);
 				bool check1;
-				do {
-					check1 = false; 
-					printf("\nMa Hoa Don: "); fflush(stdin); gets(hd.mahd);
-					XoaDauCach(hd.mahd);
-			 		if(strlen(hd.mahd)==0){ 
-						printf("\n=> Ma Khoa Hoc Khong Hop Le. Moi Nhap Lai !");
-						check1 = true;
-					} 
-					for (int i = 0; i < slkh; i++) {
-						if (strcmp(dshd[i].mahd, hd.mahd) == 0) {
-							printf("\nMa Hoa Don Da Ton Tai. Moi Nhap Lai !");
-							check1 = true;
-						}
-					}
-				} while (check1 == true);
+//				do {
+//					check1 = false; 
+//					printf("\nMa Hoa Don: "); fflush(stdin); gets(hd.mahd);
+//					XoaDauCach(hd.mahd);
+//			 		if(strlen(hd.mahd)==0){
+//						printf("\n=> Ma Hoa Don Khong Hop Le. Moi Nhap Lai !");
+//						check1 = true;
+//					} 
+//					for (int i = 0; i < slkh; i++) {
+//						if (strcmp(dshd[i].mahd, hd.mahd) == 0) {
+//							printf("\nMa Hoa Don Da Ton Tai. Moi Nhap Lai !");
+//							check1 = true;
+//						}
+//					}
+//				} while (check1 == true);
 			
 				do {
 					check1 = false; 
@@ -1151,16 +1224,25 @@ void CapNhapTT_HoaDon(HoaDonDat dshd[], int slhd, NhanVien dsnv[], int slnv, Kha
 						if (strcmp(dskh[i].makh, hd.makh) == 0) {
 							strcpy(hd.tenkh, dskh[i].tenkh);
 							printf("Ten Khach Hang: %s\n", hd.tenkh);
-							check = true;
-						}
-						else if (strcmp(dskh[i].makh, hd.makh) == 0) {
-							strcpy(hd.ngaydat, dskh[i].ngaydat);
-							printf("Ngay Dat Hang: %s\n", hd.ngaydat);
-							check = true;
+							strcpy(hd.sdt, dskh[i].sdt);
+							printf("Sdt kh: %s\n", hd.sdt);
+							strcpy(hd.diachi, dskh[i].diachi);
+							printf("Dia Chi: %s\n", hd.diachi);
+							check1 = true;
+							break;
 						}
 					}
 					if(check1 == false) printf("\n=> Ma Khach Hang Khong Ton Tai. Moi Nhap Lai !\n");
 				} while (check1 == false);
+				
+				do{ 
+					printf("Ngay Dat Hang(DD/MM/YYYY): "); fflush(stdin); gets(hd.ngaydat); 
+					XoaDauCach(hd.ngaydat);
+					if(KTNgayChuan(hd.ngaydat) == true){
+							break;
+					}
+				printf("\n=> Ngay Dat Hang Khong Hop Le. Vui Long Nhap Dung Dinh Dang Ngay !\n"); 
+				}while(true);
 				
 				do{ 
 					printf("Ngay Giao Hang (DD/MM/YY): ");fflush(stdin); gets(hd.ngaygiao); 
@@ -1174,7 +1256,9 @@ void CapNhapTT_HoaDon(HoaDonDat dshd[], int slhd, NhanVien dsnv[], int slnv, Kha
 				GhiFile_HoaDon(dshd,slhd);
 				printf("\nCap Nhap Thanh Cong\n");
 				printf("\n\t\t\t\t\t\tDanh Sach Hoa Don Sau Khi Cap Nhap\n"); 
-				HienThiTT_HoaDon(dshd, slhd );
+				HienThiCot_HoaDon();
+				printf("| %-10s | %-10s | %-30s | %-10s | %-30s |%-12s  |%-20s  |%-15s | %-15s |\n",dshd[check].mahd, dshd[check].manv, dshd[check].tennv, dshd[check].makh, dshd[check].tenkh, dshd[check].sdt, dshd[check].diachi, dshd[check].ngaydat, dshd[check].ngaygiao);
+				printf("___________________________________________________________________________________________________________________________________________________________________________________\n");
 			}
 		}
 	}while(true);
@@ -1192,7 +1276,7 @@ void XoaTT_HoaDon(HoaDonDat dshd[], int* slhd, NhanVien dsnv[], int* slnv, Khach
 		}  
 		system("cls");
 		printf("\n\t\t\t\t\t\tDanh Sach Hoa Don\n");
-		HienThiTT_HoaDon(dshd, *slhd );
+		HienThiTT_HoaDon(dshd, *slhd);
 		char mahdCanXoa[10]; 
 		printf("Nhap Ma Hoa Don Can Xoa: "); scanf("%s", &mahdCanXoa);
 		int check = timkiem_hoadon(dshd, *slhd ,mahdCanXoa);
@@ -1210,10 +1294,10 @@ void XoaTT_HoaDon(HoaDonDat dshd[], int* slhd, NhanVien dsnv[], int* slnv, Khach
 					dshd[j] = dshd[j + 1];
 				}
 				*slhd = *slhd - 1;  
-				
+//				*slhd--;
 				printf("\nThong Tin Hoa Don Da Duoc Xoa.\n");
 				printf("\n\t\t\t\t\t\tDanh Sach Hoa Don Sau Khi Xoa\n");
-				HienThiTT_HoaDon(dshd, *slhd );
+				HienThiTT_HoaDon(dshd, *slhd);
 				GhiFile_HoaDon(dshd, *slhd);
 				
 			}
@@ -1224,26 +1308,45 @@ void XoaTT_HoaDon(HoaDonDat dshd[], int* slhd, NhanVien dsnv[], int* slnv, Khach
 void QuanLyTT_HoaDon(HoaDonDat dshd[], int* slhd, NhanVien dsnv[], int* slnv, KhachHang dskh[], int* slkh) {
 	int chon;
 	do {
-		system("cls");
-		printf("\n _____________ Quan Ly Hoa Don _____________");
-		printf("\n|                                           |");
-		printf("\n|    1. Them Thong Tin Hoa Don Moi          |");
-		printf("\n|    2. Cap Nhap Lai Thong Tin Hoa Don      |");
-		printf("\n|    3. Xoa Thong Tin Hoa Don               |");
-		printf("\n|    0. Thoat Quan Ly Hoa Don               |");
-		printf("\n|___________________________________________|");
-		printf("\n           Lua chon cua ban? ");
-		scanf("%d", &chon);
+		do{
+		
+			system("cls");
+			printf("\n _____________ Quan Ly Hoa Don _____________");
+			printf("\n|                                           |");
+			printf("\n|    1. Them Thong Tin Hoa Don Moi          |");
+			printf("\n|    2. Cap Nhap Lai Thong Tin Hoa Don      |");
+			printf("\n|    3. Xoa Thong Tin Hoa Don               |");
+			printf("\n|    0. Thoat Quan Ly Hoa Don               |");
+			printf("\n|___________________________________________|");
+			bool check = true;
+			char Chon[5];
+			printf("\n               	Ban lua chon: ");
+			scanf("%s", &Chon); 
+			for(int i = 0; i<strlen(Chon);i++){
+				if(Chon[i] < 48 || Chon[i] > 57){
+					check = false;
+				}
+			}
+			if(check == true){
+				chon = atoi(Chon);
+				break;
+			} 
+			else{
+				printf("Lua Chon Khong Phu Hop. Moi Ban Nhap Lai!\n");
+				system("pause");
+			}  
+			
+		}while(true);
 		switch (chon) {
 		case 0:
 			break;
 		case 1:
 		{ 	
-			if(slhd == 0){
-				printf("\nChua Co Thong Tin Hoa Don Day\n");
-				system("pause");
-				break;
-			} 
+//			if(slhd == 0){
+//				printf("\nChua Co Thong Tin Hoa Don Dat\n");
+//				system("pause");
+//				break;
+//			} 
 			char key[5];
 			do{
  				printf("Nhap Phim Bat De Tiep Tuc Hoac Enter De ket Thuc: ");
@@ -1277,39 +1380,60 @@ void QuanLyTT_HoaDon(HoaDonDat dshd[], int* slhd, NhanVien dsnv[], int* slnv, Kh
 // ========= Nhap thong tin Bang Luong ==========================
 BangLuong Nhap1TT_BangLuong(BangLuong dsbl[], int slbl, NhanVien dsnv[], int slnv) {
 	BangLuong bl;
-	bool check = false;
+	bool check;
 	
-	do{
+	do {
 		check = false;
-		printf("Nhap Ma Nhan Vien: "); fflush(stdin); gets(bl.manv);
-		XoaDauCach(bl.manv);
+		printf("\nMa Nhan Vien: "); fflush(stdin); gets(bl.manv); 
 		for (int i = 0; i < slnv; i++) {
 			if (strcmp(dsnv[i].manv, bl.manv) == 0) {
 				strcpy(bl.tennv, dsnv[i].tennv);
 				printf("Ten Nhan Vien: %s\n", bl.tennv);
 				check = true;
+				break;
 			}
 		}
-		if(check == false) printf("\n=> Ma Nhan Vien Khong Ton Tai. Moi Nhap Lai !\n");
-	}while(check == false);
+		if(check == false){
+			printf("\n=> MaNV Khong Ton Tai! Moi Ban Nhap Lai!\n");
+		}
+	} while (check == false);
+//	do{
+//		check = false;
+//		printf("Nhap Ma Nhan Vien: "); fflush(stdin); gets(bl.manv);
+//		XoaDauCach(bl.manv);
+//		for (int i = 0; i < slbl; i++) {
+//			if (strcmp(dsnv[i].manv, bl.manv) == 0) {
+//				strcpy(bl.tennv, dsnv[i].tennv);
+//				printf("Ten Nhan Vien: %s\n", bl.tennv);
+//				check = true;
+//			}
+//		}     
+//		if(check == false) printf("\n=> Ma Nhan Vien Khong Ton Tai. Moi Nhap Lai !\n");
+//	}while(check == false);
 	do{ 
-		printf("Nhap thoi gian lam viec(gio)): "); fflush(stdin); scanf("%f",&bl.tglv);
-		if(bl.tglv >= 300){ 
+		printf("Nhap thoi gian lam viec(gio): "); fflush(stdin); scanf("%f",&bl.tglv);
+		if(bl.tglv >= 300 && bl.tglv <= 500 ){ 
 			break;
 		}
-		printf("\n=> Thoi gian lam viec >=300 gio. Moi Nhap Lai !\n");
+		printf("\n=> Thoi gian lam viec tu (300 <= tglv <= 500) gio. Moi Nhap Lai !\n");
 	}while(true);
 	do{
 		printf("Nhap so don hang da giao: "); fflush(stdin); scanf("%f",&bl.sddg);
-		if(bl.sddg >= 900 ){ 
+		if(bl.sddg >= 900 && bl.sddg <= 1200){ 
 			break;
 		}
-		printf("\n=> So don hang da giao phai >= 900 don/thang. Moi Nhap Lai !\n");
+		printf("\n=> So don hang da giao tu (900 <= sddg <= 1200)don/thang. Moi Nhap Lai !\n");
 	}while(true);
-
+	
+	do{
 	printf("Nhap thoi gian lam them(gio): "); fflush(stdin);  scanf("%f",&bl.tglt);
-	bl.lcb = bl.tglv*20000;
-	bl.llt = bl.tglt*30000;
+	if(bl.tglt >= 0 && bl.tglt <= 200){ 
+			break;
+		}
+		printf("\n=> Thoi gian lam them tu (0 <= sddg <= 200)gio/thang. Moi Nhap Lai !\n");
+	}while(true);
+	bl.lcb = bl.tglv*15000;
+	bl.llt = bl.tglt*20000;
 	bl.ttl = bl.lcb + bl.llt;
 
 	return bl;
@@ -1323,8 +1447,8 @@ int timkiem_bangluong(BangLuong dsbl[], int slbl,char str[10]){
 			check = i;
 			printf("\n\t\t\t\t\t\tThong Tin Bang Luong Can Tim\n");
 			HienThiCot_BangLuong(); 
-			printf("| %-10s | %-30s | %-15s | %-27s | %-10s | %-25s | %-25s | %-25s \n", dsbl[i].manv, dsbl[i].tennv, dsbl[i].tglv, dsbl[i].sddg, dsbl[i].tglt, dsbl[i].lcb, dsbl[i].llt, dsbl[i].ttl);
-			printf("_______________________________________________________________________________________________________________________________________________________________________\n");				
+			printf("| %-10s | %-30s | %-10.2f | %-14.2f | %-15.2f | %-20.2f | %-20.2f | %-20.2f |\n", dsbl[i].manv, dsbl[i].tennv, dsbl[i].tglv, dsbl[i].sddg, dsbl[i].tglt, dsbl[i].lcb, dsbl[i].llt, dsbl[i].ttl);
+			printf("____________________________________________________________________________________________________________________________________________________________________\n");				
 				
 			break; 
 		}
@@ -1334,11 +1458,11 @@ int timkiem_bangluong(BangLuong dsbl[], int slbl,char str[10]){
 void TimKiem_BangLuong(BangLuong dsbl[], int slbl) {
  	printf("\n\t\t\t\t\t\tTHONG TIN BANG LUONG\n");
 	HienThiTT_BangLuong(dsbl, slbl);
-	char mablCanTim[10]; 
-	printf("Nhap Ma Bang Luong Can Tim: "); scanf("%s", &mablCanTim);
-	int check = timkiem_bangluong(dsbl,slbl, mablCanTim);
+	char manvCanTim[10]; 
+	printf("Nhap Ma Nhan Vien Can Tim: "); scanf("%s", &manvCanTim);
+	int check = timkiem_bangluong(dsbl,slbl, manvCanTim);
 	if (check == -1) {
-		printf("\nKhong Tim Thay Khach Hang\n");
+		printf("\nKhong Tim Thay Nhan Vien\n");
 		return;
 	}	
 }
@@ -1370,38 +1494,63 @@ void CapNhapTT_BangLuong(BangLuong dsbl[], int slbl, NhanVien dsnv[], int slnv){
 				bool check1;
 				BangLuong bl;
 				strcpy(bl.manv, ManvCanCapNhap); 
+				do {
+					check1 = true;
+					for (int i = 0; i < slnv; i++) {
+						if (strcmp(dsnv[i].manv, bl.manv) == 0) { 
+							strcpy(bl.tennv, dsnv[i].tennv);
+							printf("Ten Nhan Vien: %s\n", bl.tennv);
+							check1 = true;
+							break;
+						}
+						else{
+							check1 = false;
+						}
+					} 
+					if(check1 == false){
+						printf("\n=> MaNV Khong Ton Tai! Moi Ban Nhap Lai!\n");
+					}
+				} while (check1 == false);
 				do{ 
 				printf("Nhap thoi gian lam viec(gio)): "); fflush(stdin); scanf("%f",&bl.tglv);
-					if(bl.tglv >= 300){ 
+					if(bl.tglv >= 300 && bl.tglv <= 500 ){ 
 						break;
 					}
-					printf("\n=> Thoi gian lam viec >= 300 gio. Moi Nhap Lai !\n");
+					printf("\n=> Thoi gian lam viec tu (300 <= tglv <= 500) gio. Moi Nhap Lai !\n");
 				}while(true);
 				do{
 					printf("Nhap so don hang da giao: "); fflush(stdin); scanf("%f",&bl.sddg);
-					if(bl.sddg >= 900 ){ 
+					if(bl.sddg >= 900  && bl.sddg <= 1200 ){ 
 						break;
 					}
-					printf("\n=> So don hang da giao phai >= 900 don/thang. Moi Nhap Lai !\n");
+					printf("\n=> So don hang da giao tu (900 <= sddg <= 1200)don/thang. Moi Nhap Lai !\n");
 				}while(true);
 			
-				printf("Nhap thoi gian lam them(gio): "); fflush(stdin);  scanf("%f",&bl.tglt);
-				bl.lcb = bl.tglv*20000;
-				bl.llt = bl.tglt*30000;
+				do{
+					printf("Nhap thoi gian lam them(gio): "); fflush(stdin);  scanf("%f",&bl.tglt);
+					if(bl.tglt >= 0 && bl.tglt <= 200){ 
+							break;
+						}
+						printf("\n=> Thoi gian lam them tu (0 <= sddg <= 200)gio/thang. Moi Nhap Lai !\n");
+				}while(true);
+				bl.lcb = bl.tglv*15000;
+				bl.llt = bl.tglt*20000;
 				bl.ttl = bl.lcb + bl.llt;
 				
 				dsbl[check] = bl;
 				GhiFile_BangLuong(dsbl, slbl);
 				printf("\nCap Nhap Thanh Cong\n"); 
 				printf("\n\t\t\t\t\t\t\tDanh Sach Bang Luong Sau Khi Sua\n");
-				HienThiTT_BangLuong(dsbl, slbl);   
+				HienThiCot_BangLuong();
+				printf("| %-10s | %-30s | %-10.2f | %-14.2f | %-15.2f | %-20.2f | %-20.2f | %-20.2f |\n", dsbl[check].manv, dsbl[check].tennv, dsbl[check].tglv, dsbl[check].sddg, dsbl[check].tglt, dsbl[check].lcb, dsbl[check].llt, dsbl[check].ttl);
+				printf("____________________________________________________________________________________________________________________________________________________________________\n");   
 			}
 		}
 	}while(true); 
 	return;
 }
 
-// ==================== xoa thong tin dang ky hoc ================
+// ==================== xoa thong tin bang luong ================
 void XoaTT_BangLuong(BangLuong dsbl[], int *slbl, NhanVien dsnv[], int slnv){
 	char key[5];
  	do{ 
@@ -1412,7 +1561,7 @@ void XoaTT_BangLuong(BangLuong dsbl[], int *slbl, NhanVien dsnv[], int slnv){
 		}
 		system("cls"); 
 		printf("\n\t\t\t\t\t\tThong Tin Danh Sach Bang Luong\n");
-		HienThiTT_BangLuong(dsbl, *slbl );
+		HienThiTT_BangLuong(dsbl, *slbl);
 		char ManvCanXoa[10];
 		printf("Nhap Ma Nhan Vien Can Xoa: "); scanf("%s", &ManvCanXoa);
 		int check = timkiem_bangluong(dsbl, *slbl , ManvCanXoa);
@@ -1422,7 +1571,7 @@ void XoaTT_BangLuong(BangLuong dsbl[], int *slbl, NhanVien dsnv[], int slnv){
 		else{
 			printf("Ban Co Chac Chan Muon Xoa Khong ? (y): ");
 			fflush(stdin); gets(key); 
-			if(strcmp(strlwr(key),"y")==0){
+			if(strcmp(strlwr(key),"y")!=0){
 				printf("\nThong Tin Bang Luong Chua Duoc Xoa.\n");
 			}
 			else{
@@ -1433,7 +1582,7 @@ void XoaTT_BangLuong(BangLuong dsbl[], int *slbl, NhanVien dsnv[], int slnv){
 				GhiFile_BangLuong(dsbl,*slbl);
 				printf("\nXoa Thanh Cong\n"); 
 			 	printf("\n\t\t\t\t\t\tDanh Sach Bang Luong Sau Khi Xoa\n");
-				HienThiTT_BangLuong(dsbl, *slbl );
+				HienThiTT_BangLuong(dsbl, *slbl);
 			}
 		} 
 	}while(true);
@@ -1442,27 +1591,46 @@ void XoaTT_BangLuong(BangLuong dsbl[], int *slbl, NhanVien dsnv[], int slnv){
 
 void QuanLyTT_BangLuong(BangLuong dsbl[], int *slbl, NhanVien dsnv[], int slnv){
 	int chon;
-	do {
-		system("cls");
-		printf("\n _____________ Quan Ly Bang Luong _____________");
-		printf("\n|                                              |");
-		printf("\n|    1. Them Thong Tin Bang Luong              |");
-		printf("\n|    2. Cap Nhap Lai Thong Tin Bang Luong      |");
-		printf("\n|    3. Xoa Thong Tin Bang Luong               |");
-		printf("\n|    0. Thoat Quan Ly Bang Luong               |");
-		printf("\n|______________________________________________|");
-		printf("\n          Nhap lua chon cua ban: ");
-		scanf("%d", &chon);
+	do { 
+		do{
+	
+			system("cls");
+			printf("\n _____________ Quan Ly Bang Luong _____________");
+			printf("\n|                                              |");
+			printf("\n|    1. Them Thong Tin Bang Luong              |");
+			printf("\n|    2. Cap Nhap Lai Thong Tin Bang Luong      |");
+			printf("\n|    3. Xoa Thong Tin Bang Luong               |");
+			printf("\n|    0. Thoat Quan Ly Bang Luong               |");
+			printf("\n|______________________________________________|");
+			bool check = true;
+			char Chon[5];
+			printf("\n               	Ban lua chon: ");
+			scanf("%s", &Chon); 
+			for(int i = 0; i<strlen(Chon);i++){
+				if(Chon[i] < 48 || Chon[i] > 57){
+					check = false;
+				}
+			}
+			if(check == true){
+				chon = atoi(Chon);
+				break;
+			} 
+			else{
+				printf("Lua Chon Khong Phu Hop. Moi Ban Nhap Lai!\n");
+				system("pause");
+			}  
+			
+		}while(true);
 		switch (chon) {
 		case 0:
 			break;
 		case 1:
 		{   	
-			if(slnv == 0 ){
-				printf("\nChua Co Thong Tin Nhan Vien.\n");
-				system("pause");
-				break;
-			}
+//			if(slnv == 0 ){
+//				printf("\nChua Co Thong Tin Nhan Vien.\n");
+//				system("pause");
+//				break;
+//			}
 			char key[5];
 			do{  
  				printf("Nhap Phim Bat Ky De Tiep Tuc Hoac Enter De ket Thuc: ");
@@ -1470,7 +1638,7 @@ void QuanLyTT_BangLuong(BangLuong dsbl[], int *slbl, NhanVien dsnv[], int slnv){
 				if(strlen(key)==0){
 					break;
 				}
-				printf("\nThem Thong Tin Bang Luong Thu %d", *slbl + 1);
+				printf("\nThem Thong Tin Bang Luong Thu %d \n", *slbl + 1);
 				BangLuong bl = Nhap1TT_BangLuong(dsbl, *slbl, dsnv, slnv);
 				if(strcmp(bl.manv,"\0")==0){
 					printf("\nThem Thong Tin Khong Thanh Cong\n");
@@ -1502,17 +1670,36 @@ void QuanLyTT_BangLuong(BangLuong dsbl[], int *slbl, NhanVien dsnv[], int slnv){
 void TimKiem(NhanVien dsnv[], int slnv, KhachHang dskh[], int slkh, HoaDonDat dshd[], int slhd, BangLuong dsbl[], int slbl){
 	int chon;
 	do{
-		system("cls");
-		printf("\n_____________________________ Tim Kiem _________________________________\n");
-		printf("|                                                                         |\n");
-		printf("|     1. Tim Kiem Thong Tin Nhan Vien    						   	      |\n"); 
-		printf("|     2. Tim Kiem Thong Tin Khach Hang      						      |\n");
-		printf("|     3. Tim Kiem Thong Tin Hoa Don Dat Hang  						      |\n");
-		printf("|     4. Tim Kiem Thong Tin Bang Luong cua Nhan Vien                      |\n");
-		printf("|     0. Thoat Tim kiem                                                   |\n");
-		printf("|_________________________________________________________________________|\n");
-		printf("            Lua Chon Cua Ban? ");
-		scanf("%d",&chon);
+		do{
+									
+			system("cls");
+			printf("\n_____________________________ Tim Kiem _____________________\n");
+			printf("|                                                           |\n");
+			printf("|     1. Tim Kiem Thong Tin Nhan Vien    		    |\n"); 
+			printf("|     2. Tim Kiem Thong Tin Khach Hang      		    |\n");
+			printf("|     3. Tim Kiem Thong Tin Hoa Don Dat Hang  		    |\n");
+			printf("|     4. Tim Kiem Thong Tin Bang Luong cua Nhan Vien        |\n");
+			printf("|     0. Thoat Tim kiem                                     |\n");
+			printf("|___________________________________________________________|\n");				
+			bool check = true;
+			char Chon[5];
+			printf("\n               	Ban lua chon: ");
+			scanf("%s", &Chon); 
+			for(int i = 0; i<strlen(Chon);i++){
+				if(Chon[i] < 48 || Chon[i] > 57){
+					check = false;
+				}
+			}
+			if(check == true){
+				chon = atoi(Chon);
+				break;
+			} 
+			else{
+				printf("Lua Chon Khong Phu Hop. Moi Ban Nhap Lai!\n");
+				system("pause");
+			}  
+			
+		}while(true);
 		switch(chon){
 			case 0: 
 				break;
@@ -1548,23 +1735,41 @@ void main() {
 	 
 	int luachon;
 	do {
-		system("cls");
-		printf("\n____________ Chuong Trinh Quan Ly Shipper Giao Hang Online __________\n");
-		printf("|                                                                      |\n");
-		printf("|          1.  Quan Ly Thong Tin Nhan Vien                             |\n");
-		printf("|          2.  Quan Ly Thong Tin Khach Hang                            |\n");
-		printf("|          3.  Quan Ly Thong Tin Hoa Don Dat Hang                      |\n");
-		printf("|          4.  Quan Ly Thong Tin Bang Luong Cua Nhan Vien              |\n");
-		printf("|          5.  Hien Thi Thong Tin                                      |\n");
-		printf("|          6.  Tim Kiem Thong Tin                                      |\n");
-		printf("|          0.  Thoat chuong trinh                                      |\n");
-		printf("|______________________________________________________________________|");
-		printf("\n               	Lua chon cua ban:  ");
-		scanf("%d", &luachon);
-		getchar();
+		do
+		{
+			 
+			system("cls");
+			printf("\n____________ Chuong Trinh Quan Ly Shipper Giao Hang Online __________\n");
+			printf("|                                                                      |\n");
+			printf("|          1.  Quan Ly Thong Tin Nhan Vien                             |\n");
+			printf("|          2.  Quan Ly Thong Tin Khach Hang                            |\n");
+			printf("|          3.  Quan Ly Thong Tin Hoa Don Dat Hang                      |\n");
+			printf("|          4.  Quan Ly Thong Tin Bang Luong Cua Nhan Vien              |\n");
+			printf("|          5.  Hien Thi Thong Tin                                      |\n");
+			printf("|          6.  Tim Kiem Thong Tin                                      |\n");
+			printf("|          0.  Thoat chuong trinh                                      |\n");
+			printf("|______________________________________________________________________|");
+			bool check = true;
+			char chon[5];
+			printf("\n               	Ban lua chon: ");
+			scanf("%s", &chon); 
+			for(int i = 0; i<strlen(chon);i++){
+				if(chon[i] < 48 || chon[i] > 57){
+					check = false;
+				}
+			}
+			if(check == true){
+				luachon = atoi(chon);
+				break;
+			} 
+			else{
+				printf("Lua Chon Khong Phu Hop. Moi Ban Nhap Lai!\n");
+				system("pause");
+			} 
+		}while(true);
 		switch (luachon) {
 		case 0:
-			printf("\n      Da Chuong Trinh Quan Ly Shipper Giao Hang Online\n");
+			printf("\n     Tam Biet Chuong Trinh Quan Ly Shipper Giao Hang Online\n");
 			break;
 		case 1:
 			QuanLyTT_NhanVien(dsnv, &slnv, dskh, &slkh, dshd, &slhd, dsbl, &slbl);
